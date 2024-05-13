@@ -44,6 +44,12 @@ export default function Home() {
                     value: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/,
                     message: "Email form is incorrect",
                   },
+                  validate: (value) => {
+                    return (
+                      !(value == "admin@gmail.com") ||
+                      "This email is not allowed"
+                    );
+                  },
                 })}
               />
               <p className=" w-full py-2 px-2  text-red-700">
