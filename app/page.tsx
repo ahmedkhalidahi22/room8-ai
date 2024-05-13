@@ -8,7 +8,11 @@ interface FormInput {
 }
 
 export default function Home() {
-  const { register, handleSubmit, formState } = useForm<FormInput>();
+  const { register, handleSubmit, formState } = useForm<FormInput>({
+    defaultValues: {
+      name: "Ahmed Khalid",
+    },
+  });
   const onSubmit: SubmitHandler<FormInput> = (data) => console.log(data);
   const { errors } = formState;
 
