@@ -8,10 +8,18 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
+const responseSchema = z.object({
+  message: z.string().min(1),
+  username: z.string().min(1),
+});
+
+type TresponseSchema = z.infer<typeof responseSchema>;
 type TformSchema = z.infer<typeof formSchema>;
 
 export default function Home() {
-  const [submitResponse, SetsubmitResponse] = useState(null);
+  const [submitResponse, SetsubmitResponse] = useState<
+    String | null | undefined
+  >(null);
 
   const { register, handleSubmit, formState } = useForm<TformSchema>({
     resolver: zodResolver(formSchema),
@@ -26,7 +34,14 @@ export default function Home() {
       return axios.post("/api/user", userInformation);
     },
     onSuccess: (data) => {
-      SetsubmitResponse(data.data);
+      const responseData: TresponseSchema = data.data;
+      const parsedResponeData = responseSchema.safeParse(responseData);
+
+      if (!parsedResponeData.success) {
+        console.log(parsedResponeData.error);
+        SetsubmitResponse("sorry, username cannot be retrieved");
+      }
+      SetsubmitResponse(parsedResponeData.data?.username);
     },
   });
 
