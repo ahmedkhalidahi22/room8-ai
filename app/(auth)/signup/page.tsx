@@ -1,4 +1,5 @@
 "use client";
+import { formSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -6,21 +7,6 @@ import { Sumana } from "next/font/google";
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
-
-const formSchema = z.object({
-  name: z.string().min(1, "this field must be filled"),
-  email: z
-    .string()
-    .min(1, "this form is required")
-    .email("Email form is incorrect"),
-  phone: z
-    .string()
-    .min(1, "this form is required")
-    .regex(
-      /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
-      "Invalid Number!"
-    ),
-});
 
 type TformSchema = z.infer<typeof formSchema>;
 
