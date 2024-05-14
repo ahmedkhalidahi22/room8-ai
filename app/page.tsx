@@ -1,6 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { Sumana } from "next/font/google";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface FormInput {
@@ -10,20 +12,32 @@ interface FormInput {
 }
 
 export default function Home() {
+  const [submitResponse, SetsubmitResponse] = useState(null);
+
   const { register, handleSubmit, formState } = useForm<FormInput>({
     defaultValues: {
       name: "Ahmed Khalid",
     },
   });
+
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     mutation.mutate({ email: data.email, name: data.name, phone: data.phone });
   };
 
+  //set useMutation and pass mutation function that performs the post request
   const mutation = useMutation({
     mutationFn: (userInformation: FormInput) => {
       return axios.post("/api/user", userInformation);
     },
+    onSuccess: (data) => {
+      SetsubmitResponse(data.data);
+    },
   });
+
+  useEffect(() => {
+    console.log(submitResponse);
+  }, [submitResponse]);
+
   const { errors } = formState;
 
   return (
