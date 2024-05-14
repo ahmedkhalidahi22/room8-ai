@@ -1,4 +1,6 @@
 "use client";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface FormInput {
@@ -13,7 +15,15 @@ export default function Home() {
       name: "Ahmed Khalid",
     },
   });
-  const onSubmit: SubmitHandler<FormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormInput> = (data) => {
+    mutation.mutate({ email: data.email, name: data.name, phone: data.phone });
+  };
+
+  const mutation = useMutation({
+    mutationFn: (userInformation: FormInput) => {
+      return axios.post("/api/user", userInformation);
+    },
+  });
   const { errors } = formState;
 
   return (
@@ -73,7 +83,11 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <button className="w-full" type="submit">
+          <button
+            disabled={mutation.isPending}
+            className="w-full"
+            type="submit"
+          >
             Save Changes
           </button>
         </div>
