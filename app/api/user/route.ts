@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import { formSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -8,7 +9,6 @@ export async function GET() {
 
 export async function POST(request: Request, response: NextResponse) {
   const userInfo: unknown = await request.json();
-
   const parsedUserInfo = formSchema.safeParse(userInfo);
 
   if (!parsedUserInfo.success) {
