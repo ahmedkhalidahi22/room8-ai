@@ -11,6 +11,7 @@ import { z } from "zod";
 const responseSchema = z.object({
   message: z.string().min(1),
   username: z.string().min(1),
+  email: z.string().min(1),
 });
 
 type TresponseSchema = z.infer<typeof responseSchema>;
@@ -18,8 +19,11 @@ type TformSchema = z.infer<typeof formSchema>;
 
 export default function Home() {
   const [submitResponse, SetsubmitResponse] = useState<
-    String | null | undefined
+    TresponseSchema | null | undefined
   >(null);
+  const [responseError, setResponseError] = useState<String | null | undefined>(
+    null
+  );
 
   const { register, handleSubmit, formState } = useForm<TformSchema>({
     resolver: zodResolver(formSchema),
@@ -39,9 +43,9 @@ export default function Home() {
 
       if (!parsedResponeData.success) {
         console.log(parsedResponeData.error);
-        SetsubmitResponse("sorry, username cannot be retrieved");
+        setResponseError("sorry, username cannot be retrieved");
       }
-      SetsubmitResponse(parsedResponeData.data?.username);
+      SetsubmitResponse(parsedResponeData.data);
     },
   });
 
@@ -97,8 +101,21 @@ export default function Home() {
         </div>
       </form>
       <div className="mt-10">
-        {submitResponse && <h4>Results: {submitResponse}</h4>}
+        {submitResponse && (
+          <div>
+            <h4>Respone Results</h4>
+            <p>Message: {submitResponse.message} </p>
+            <p>Name: {submitResponse.username}</p>
+            <p>Email: {submitResponse.email}</p>
+          </div>
+        )}
       </div>
+
+      {responseError && (
+        <div>
+          <p className="text-red-700">{responseError}</p>
+        </div>
+      )}
     </div>
   );
 }

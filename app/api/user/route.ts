@@ -15,8 +15,16 @@ export async function POST(request: Request, response: NextResponse) {
     return NextResponse.json(parsedUserInfo.error, { status: 422 });
   }
 
+  const user = await prisma.user.create({
+    data: {
+      email: parsedUserInfo.data.email,
+      name: parsedUserInfo.data.name,
+    },
+  });
+
   return NextResponse.json({
     message: "user signed up successfully",
     username: parsedUserInfo.data.name,
+    email: parsedUserInfo.data.email,
   });
 }
