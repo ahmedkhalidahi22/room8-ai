@@ -8,7 +8,7 @@ export default function CreateRoommate() {
           Create your profile
         </h1>
         <p className="text-2xl  font-medium text-emerald-700">
-          Find your next roommate using AI
+          some info about yourself
         </p>
       </div>
       <Link
