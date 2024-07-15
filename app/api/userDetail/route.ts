@@ -21,7 +21,7 @@ export async function POST(request: Request, response: NextResponse) {
       gender: parsedUserDetail.data.gender == "male" ? true : false,
       nationality: parsedUserDetail.data.nationality,
       occupation: parsedUserDetail.data.occupation,
-      userId: parsedUserDetail.data.userId, // assuming userId is a foreign key in user table and exists in the database.
+      userId: parsedUserDetail.data.userId,
     },
   });
 
