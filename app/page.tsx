@@ -9,12 +9,23 @@ export default function Home() {
           Find your next roommate using AI
         </p>
       </div>
-      <Link
-        className="w-fit py-3 px-4 bg-emerald-800 rounded-md text-white"
-        href={"/signup"}
-      >
-        SIGNUP NOW
-      </Link>
+      <div className=" mt-40 w-fit mx-auto ">
+        <h2 className="text-xl text-emerald-700">What do you need?</h2>
+        <div className="flex mt-5 flex-row gap-4 justify-center content-center">
+          <Link
+            className="w-fit py-3 px-4 bg-emerald-800 rounded-md text-white hover:bg-emerald-700 duration-200 transition-all"
+            href={"/roommate/create"}
+          >
+            Searching for a place
+          </Link>
+          <Link
+            className="w-fit py-3 px-10 bg-emerald-800 rounded-md text-white hover:bg-emerald-700 duration-200 transition-all"
+            href={"/rooms/create"}
+          >
+            Need a rommate
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
