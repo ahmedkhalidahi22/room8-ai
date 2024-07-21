@@ -15,8 +15,15 @@ export const formSchema = z.object({
     ),
 });
 
+export const FormUserDetailSchema = z.object({
+  age: z.string().min(1, "this field must be filled"),
+  nationality: z.string().min(1, "this form is required"),
+  gender: z.string().min(1, "this form is required"),
+  occupation: z.string().min(1, "this form is required"),
+});
+
 export const userDetailSchema = z.object({
-  age: z.number().min(1, "this field must be filled"),
+  age: z.string().min(1, "this field must be filled"),
   nationality: z.string().min(1, "this form is required"),
   gender: z.string().min(1, "this form is required"),
   occupation: z.string().min(1, "this form is required"),

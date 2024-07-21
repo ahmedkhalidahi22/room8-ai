@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { userDetailSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
+import { parse } from "path";
 import { z } from "zod";
 
 export async function GET() {
@@ -9,6 +10,8 @@ export async function GET() {
 
 export async function POST(request: Request, response: NextResponse) {
   const userInfo: unknown = await request.json();
+  console.log("data before posting: ", userInfo);
+
   const parsedUserDetail = userDetailSchema.safeParse(userInfo);
 
   if (!parsedUserDetail.success) {
@@ -17,13 +20,14 @@ export async function POST(request: Request, response: NextResponse) {
 
   const userDetail = await prisma.userDetail.create({
     data: {
-      age: parsedUserDetail.data.age,
+      age: parseInt(parsedUserDetail.data.age),
       gender: parsedUserDetail.data.gender == "male" ? true : false,
       nationality: parsedUserDetail.data.nationality,
       occupation: parsedUserDetail.data.occupation,
       userId: parsedUserDetail.data.userId,
     },
   });
+  console.log("user Data after posting: ", userDetail);
 
   return NextResponse.json({
     message: "user details created successfully",

@@ -3,8 +3,9 @@ import { formSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-export async function GET() {
-  return new Response("SSSSSSSSUP man");
+export async function GET(request: Request, response: NextResponse) {
+  const user = await prisma.user.findFirst();
+  console.log(user);
 }
 
 export async function POST(request: Request, response: NextResponse) {
