@@ -3,6 +3,7 @@ import { signupFormSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { z } from "zod";
+import { getUserByEmail } from "@/data/user";
 
 export async function POST(request: Request, response: NextResponse) {
   const userInfo: unknown = await request.json();
@@ -14,14 +15,10 @@ export async function POST(request: Request, response: NextResponse) {
 
   const email = parsedUserInfo.data.email;
 
-  const existingUser = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
-    return { error: "email already in use" };
+    return NextResponse.json({ message: "Error: email already in use" });
   }
 
   const hashedPassword = await bcrypt.hash(parsedUserInfo.data.password, 10);
@@ -36,7 +33,5 @@ export async function POST(request: Request, response: NextResponse) {
 
   return NextResponse.json({
     message: "user signed up successfully",
-    username: parsedUserInfo.data.name,
-    email: parsedUserInfo.data.email,
   });
 }

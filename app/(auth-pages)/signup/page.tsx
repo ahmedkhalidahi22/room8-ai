@@ -10,8 +10,6 @@ import { z } from "zod";
 
 const responseSchema = z.object({
   message: z.string().min(1),
-  username: z.string().min(1),
-  email: z.string().min(1),
 });
 
 type TresponseSchema = z.infer<typeof responseSchema>;
@@ -128,8 +126,6 @@ export default function Home() {
             <div>
               <h4>Respone Results</h4>
               <p>Message: {submitResponse.message} </p>
-              <p>Name: {submitResponse.username}</p>
-              <p>Email: {submitResponse.email}</p>
             </div>
           </div>
         )}
