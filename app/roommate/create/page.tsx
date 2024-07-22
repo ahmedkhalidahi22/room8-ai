@@ -66,7 +66,7 @@ export default function CreateRoommate() {
   const { errors } = formState;
 
   return (
-    <div className="mx-auto text-center  pt-4  bg-emerald-50">
+    <div className="mx-auto text-center  pt-4  bg-emerald-50 ">
       <div className="text-left px-8 bg-white py-8 mx-auto max-w-[500px] w-full rounded-lg mt-16 ">
         <div className="space-y-3 mb-10 ">
           <h1 className="text-4xl font-bold text-emerald-900">

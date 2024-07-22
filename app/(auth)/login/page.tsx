@@ -1,5 +1,5 @@
 "use client";
-import { signupFormSchema } from "@/lib/validations";
+import { formSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -15,7 +15,7 @@ const responseSchema = z.object({
 });
 
 type TresponseSchema = z.infer<typeof responseSchema>;
-type TformSchema = z.infer<typeof signupFormSchema>;
+type TformSchema = z.infer<typeof formSchema>;
 
 export default function Home() {
   const [submitResponse, SetsubmitResponse] = useState<
@@ -26,23 +26,16 @@ export default function Home() {
   );
 
   const { register, handleSubmit, formState } = useForm<TformSchema>({
-    resolver: zodResolver(signupFormSchema),
+    resolver: zodResolver(formSchema),
   });
   const onSubmit: SubmitHandler<TformSchema> = (data) => {
-    console.log("mutation triggered");
-
-    mutation.mutate({
-      email: data.email,
-      name: data.name,
-      phone: data.phone,
-      password: data.password,
-    });
+    mutation.mutate({ email: data.email, name: data.name, phone: data.phone });
   };
 
   //set useMutation and pass mutation function that performs the post request
   const mutation = useMutation({
     mutationFn: (userInformation: TformSchema) => {
-      return axios.post("/api/signup", userInformation);
+      return axios.post("/api/user", userInformation);
     },
     onSuccess: (data) => {
       const responseData: TresponseSchema = data.data;
@@ -73,22 +66,9 @@ export default function Home() {
           <div className="space-y-4">
             <div className="grid grid-cols-1">
               <div className="space-y-2 flex flex-col ">
-                <label htmlFor="name">Name</label>
-                <input
-                  placeholder="John Doe"
-                  className="border border-emerald-200 py-3 px-2 rounded-lg focus:outline-emerald-500 focus:outline-2"
-                  {...register("name")}
-                />
-
-                <p className=" w-full py-2 px-2  text-red-700">
-                  {errors.name?.message}
-                </p>
-              </div>
-              <div className="space-y-2 flex flex-col ">
                 <label htmlFor="name">Email</label>
                 <input
                   placeholder="example@email.com"
-                  type="email"
                   className="border border-emerald-200 py-3 px-2 rounded-lg focus:outline-emerald-500 focus:outline-2"
                   {...register("email")}
                 />
@@ -102,19 +82,18 @@ export default function Home() {
                 <label htmlFor="name">Password</label>
                 <input
                   placeholder="*******"
-                  type="password"
                   className="border border-emerald-200 py-3 px-2 rounded-lg focus:outline-emerald-500 focus:outline-2"
-                  {...register("password")}
+                  {...register("phone")}
                 />
 
                 <p className=" w-full py-2 px-2  text-red-700">
-                  {errors.password?.message}
+                  {errors.email?.message}
                 </p>
               </div>
             </div>
             <div className="w-full text-right">
               <button
-                className="w-full px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-300"
+                className="w-full px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-500"
                 type="submit"
                 disabled={mutation.isPending}
               >
