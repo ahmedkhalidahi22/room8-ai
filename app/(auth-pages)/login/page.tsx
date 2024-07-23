@@ -21,6 +21,7 @@ export default function Home() {
   const [submitResponse, SetsubmitResponse] = useState<
     TresponseSchema | null | undefined
   >(null);
+
   const [responseError, setResponseError] = useState<String | null | undefined>(
     null
   );
@@ -28,6 +29,7 @@ export default function Home() {
   const { register, handleSubmit, formState } = useForm<TformSchema>({
     resolver: zodResolver(formSchema),
   });
+
   const onSubmit: SubmitHandler<TformSchema> = (data) => {
     mutation.mutate({ email: data.email, name: data.name, phone: data.phone });
   };
@@ -60,7 +62,7 @@ export default function Home() {
       <div className="text-left px-8 bg-white py-8 mx-auto max-w-[500px] w-full rounded-lg mt-16 ">
         {" "}
         <div className="space-y-3 mb-5 ">
-          <h1 className="text-4xl font-bold text-emerald-900">Sign up</h1>
+          <h1 className="text-4xl font-bold text-emerald-900">Sign In</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
@@ -97,7 +99,7 @@ export default function Home() {
                 type="submit"
                 disabled={mutation.isPending}
               >
-                Sign up
+                Sign In
               </button>
             </div>
           </div>
