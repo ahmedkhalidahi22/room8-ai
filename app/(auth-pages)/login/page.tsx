@@ -1,4 +1,5 @@
 "use client";
+import { login } from "@/actions/login";
 import { LoginFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -29,25 +30,27 @@ export default function Home() {
   });
 
   const onSubmit: SubmitHandler<TloginFormSchema> = (data) => {
-    mutation.mutate({ email: data.email, password: data.password });
+    //mutation.mutate({ email: data.email, password: data.password });
+
+    login(data);
   };
 
   //set useMutation and pass mutation function that performs the post request
-  const mutation = useMutation({
-    mutationFn: (userInformation: TloginFormSchema) => {
-      return axios.post("/api/login", userInformation);
-    },
-    onSuccess: (data) => {
-      const responseData: TresponseSchema = data.data;
-      const parsedResponeData = responseSchema.safeParse(responseData);
+  // const mutation = useMutation({
+  //   mutationFn: (userInformation: TloginFormSchema) => {
+  //     return axios.post("/api/login", userInformation);
+  //   },
+  //   onSuccess: (data) => {
+  //     const responseData: TresponseSchema = data.data;
+  //     const parsedResponeData = responseSchema.safeParse(responseData);
 
-      if (!parsedResponeData.success) {
-        console.log(parsedResponeData.error);
-        setResponseError("sorry, username cannot be retrieved");
-      }
-      SetsubmitResponse(parsedResponeData.data);
-    },
-  });
+  //     if (!parsedResponeData.success) {
+  //       console.log(parsedResponeData.error);
+  //       setResponseError("sorry, username cannot be retrieved");
+  //     }
+  //     SetsubmitResponse(parsedResponeData.data);
+  //   },
+  // });
 
   useEffect(() => {
     console.log(submitResponse);
@@ -95,7 +98,7 @@ export default function Home() {
               <button
                 className="w-full px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-500"
                 type="submit"
-                disabled={mutation.isPending}
+                // disabled={mutation.isPending}
               >
                 Sign In
               </button>
