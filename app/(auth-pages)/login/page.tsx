@@ -1,5 +1,5 @@
 "use client";
-import { formSchema } from "@/lib/validations";
+import { LoginFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -10,12 +10,10 @@ import { z } from "zod";
 
 const responseSchema = z.object({
   message: z.string().min(1),
-  username: z.string().min(1),
-  email: z.string().min(1),
 });
 
 type TresponseSchema = z.infer<typeof responseSchema>;
-type TformSchema = z.infer<typeof formSchema>;
+type TloginFormSchema = z.infer<typeof LoginFormSchema>;
 
 export default function Home() {
   const [submitResponse, SetsubmitResponse] = useState<
@@ -26,18 +24,18 @@ export default function Home() {
     null
   );
 
-  const { register, handleSubmit, formState } = useForm<TformSchema>({
-    resolver: zodResolver(formSchema),
+  const { register, handleSubmit, formState } = useForm<TloginFormSchema>({
+    resolver: zodResolver(LoginFormSchema),
   });
 
-  const onSubmit: SubmitHandler<TformSchema> = (data) => {
-    mutation.mutate({ email: data.email, name: data.name, phone: data.phone });
+  const onSubmit: SubmitHandler<TloginFormSchema> = (data) => {
+    mutation.mutate({ email: data.email, password: data.password });
   };
 
   //set useMutation and pass mutation function that performs the post request
   const mutation = useMutation({
-    mutationFn: (userInformation: TformSchema) => {
-      return axios.post("/api/user", userInformation);
+    mutationFn: (userInformation: TloginFormSchema) => {
+      return axios.post("/api/login", userInformation);
     },
     onSuccess: (data) => {
       const responseData: TresponseSchema = data.data;
@@ -85,7 +83,7 @@ export default function Home() {
                 <input
                   placeholder="*******"
                   className="border border-emerald-200 py-3 px-2 rounded-lg focus:outline-emerald-500 focus:outline-2"
-                  {...register("phone")}
+                  {...register("password")}
                 />
 
                 <p className=" w-full py-2 px-2  text-red-700">
@@ -109,8 +107,6 @@ export default function Home() {
             <div>
               <h4>Respone Results</h4>
               <p>Message: {submitResponse.message} </p>
-              <p>Name: {submitResponse.username}</p>
-              <p>Email: {submitResponse.email}</p>
             </div>
           </div>
         )}

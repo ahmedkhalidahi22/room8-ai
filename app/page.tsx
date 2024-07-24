@@ -1,6 +1,11 @@
+import { auth } from "@/auth";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
+  console.log("session::::", session);
+
   return (
     <div className="mx-auto text-center h-screen pt-4  bg-emerald-50">
       <div className="space-y-2 mb-10 ">

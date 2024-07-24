@@ -31,6 +31,14 @@ export const signupFormSchema = z.object({
   password: z.string().min(1, "this field must be filled"),
 });
 
+export const LoginFormSchema = z.object({
+  email: z
+    .string()
+    .min(1, "this form is required")
+    .email("Email form is incorrect"),
+  password: z.string().min(1, "this field must be filled"),
+});
+
 export const FormUserDetailSchema = z.object({
   age: z.string().min(1, "this field must be filled"),
   nationality: z.string().min(1, "this form is required"),
