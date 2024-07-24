@@ -21,7 +21,7 @@ export async function POST(request: Request, response: NextResponse) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: "/dashboard",
     });
   } catch (error) {
     if (error instanceof AuthError) {

@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
+import { redirect } from "next/navigation";
 
 const Dashboard = async () => {
   const session = await auth();
@@ -7,6 +8,16 @@ const Dashboard = async () => {
       <h1>Dashboard</h1>
       <p className="top-5">session details:</p>
       {JSON.stringify(session)}
+
+      <form
+        action={async () => {
+          "use server";
+          await signOut({ redirect: false });
+          redirect("/login");
+        }}
+      >
+        <button type="submit">Sign out</button>
+      </form>
     </div>
   );
 };
