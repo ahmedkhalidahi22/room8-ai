@@ -31,7 +31,7 @@ export default function CreateRoommate() {
 
   const mutation = useMutation({
     mutationFn: (userDetail: TuserDetailSchema) => {
-      return axios.post("/api/userDetail", userDetail);
+      return axios.post("/api/profile", userDetail);
     },
     onSuccess: (data) => {
       const parsedResponeData = responseSchema.safeParse(data.data);
@@ -131,6 +131,7 @@ export default function CreateRoommate() {
             </div>
             <div className="w-full text-right">
               <button
+                disabled={mutation.isPending}
                 className="w-fit px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-500"
                 type="submit"
               >

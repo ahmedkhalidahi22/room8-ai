@@ -39,14 +39,15 @@ model User {
   accounts      Account[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userDetails   UserDetail[]
+  profile   Profile[]
 }
 
-model UserDetail {
+model Profile {
   id            String       @default(cuid()) @id
   age           Int?
   nationality   String?
   gender        Boolean?
+  description   String?
   occupation    String?
   user          User @relation(fields: [userId], references: [id])
   userId        String  
