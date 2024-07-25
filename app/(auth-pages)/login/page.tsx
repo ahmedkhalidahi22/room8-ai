@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Sumana } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
@@ -25,6 +25,8 @@ export default function Home() {
     null
   );
 
+  const [pending, startTransition] = useTransition();
+
   const { register, handleSubmit, formState } = useForm<TloginFormSchema>({
     resolver: zodResolver(LoginFormSchema),
   });
@@ -32,7 +34,9 @@ export default function Home() {
   const onSubmit: SubmitHandler<TloginFormSchema> = (data) => {
     //mutation.mutate({ email: data.email, password: data.password });
 
-    login(data);
+    startTransition(() => {
+      login(data);
+    });
   };
 
   //set useMutation and pass mutation function that performs the post request
@@ -98,7 +102,7 @@ export default function Home() {
               <button
                 className="w-full px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-500"
                 type="submit"
-                // disabled={mutation.isPending}
+                disabled={pending}
               >
                 Sign In
               </button>

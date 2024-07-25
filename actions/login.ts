@@ -4,6 +4,7 @@ import { signIn } from "@/auth";
 import { LoginFormSchema } from "@/lib/validations";
 import { AuthError } from "next-auth";
 import { z } from "zod";
+import { cookies } from "next/headers";
 
 export const login = async (values: z.infer<typeof LoginFormSchema>) => {
   const parsedUserInfo = LoginFormSchema.safeParse(values);
@@ -14,11 +15,13 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
 
   const { email, password } = parsedUserInfo.data;
 
+  const redirectUrl = cookies().get("originalUrl")?.value || "/";
+  cookies().delete("originalUrl");
   try {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/dashboard",
+      redirectTo: redirectUrl,
     });
   } catch (error) {
     if (error instanceof AuthError) {
