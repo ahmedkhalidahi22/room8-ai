@@ -13,12 +13,12 @@ export default function Landing() {
       <div className="mt-20 w-fit text-center">
         <h2 className="text-xl text-foreground">What do you need?</h2>
         <div className="flex mt-5 flex-row gap-4 justify-center">
-          <Button variant="accent">
+          <Button variant="accent" size="lg">
             <Link href={"/roommate/create"}>
               Searching for a place
             </Link>
           </Button>
-          <Button variant="outline">
+          <Button variant="outline" size="lg">
             <Link href={"/rooms/create"}>
               Need a roommate
             </Link>
