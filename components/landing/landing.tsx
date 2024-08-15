@@ -8,7 +8,7 @@ export default function Landing() {
         <h1 className="text-4xl font-bold ">Find Your Roommate </h1>
 
       </div>
-      <div className=" w-fit text-center">
+      <div className=" w-full text-center">
         <h2 className="text-xl text-foreground">What do you need?</h2>
         <div className="flex mt-5 flex-row gap-4 justify-center">
           <Button variant="accent" size="lg">
@@ -17,7 +17,7 @@ export default function Landing() {
             </Link>
           </Button>
           <Button variant="outline" size="lg">
-            <Link href={"/rooms/create"}>
+            <Link href={"/"}>
               Need a roommate
             </Link>
           </Button>
