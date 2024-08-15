@@ -6,11 +6,9 @@ export default function Landing() {
 <div className="flex flex-col items-center justify-center h-screen">
       <div className="space-y-2 mb-10 text-center">
         <h1 className="text-4xl font-bold ">Find Your Roommate </h1>
-        <p className="text-2xl font-medium text-foreground">
-        using AI
-        </p>
+
       </div>
-      <div className="mt-20 w-fit text-center">
+      <div className=" w-fit text-center">
         <h2 className="text-xl text-foreground">What do you need?</h2>
         <div className="flex mt-5 flex-row gap-4 justify-center">
           <Button variant="accent" size="lg">
