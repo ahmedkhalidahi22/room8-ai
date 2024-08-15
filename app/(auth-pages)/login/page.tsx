@@ -63,11 +63,11 @@ export default function Home() {
   const { errors } = formState;
 
   return (
-    <div className="mx-auto text-center  pt-4  bg-emerald-50 h-screen">
-      <div className="text-left px-8 bg-white py-8 mx-auto max-w-[500px] w-full rounded-lg mt-16 ">
+    <div className="mx-auto text-center">
+      <div className="text-left px-8 bg-white py-8 mx-auto max-w-[900px] w-full rounded-lg">
         {" "}
         <div className="space-y-3 mb-5 ">
-          <h1 className="text-4xl font-bold text-emerald-900">Sign In</h1>
+          <h1 className="text-4xl font-bold ">Sign In</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
@@ -100,7 +100,7 @@ export default function Home() {
             </div>
             <div className="w-full text-right">
               <button
-                className="w-full px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-500"
+                className="w-full px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:0"
                 type="submit"
                 disabled={pending}
               >

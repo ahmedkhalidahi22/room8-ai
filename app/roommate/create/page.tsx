@@ -66,13 +66,13 @@ export default function CreateRoommate() {
   const { errors } = formState;
 
   return (
-    <div className="mx-auto text-center  pt-4  bg-emerald-50 ">
+    <div className="mx-auto text-center  pt-4 ">
       <div className="text-left px-8 bg-white py-8 mx-auto max-w-[500px] w-full rounded-lg mt-16 ">
         <div className="space-y-3 mb-10 ">
-          <h1 className="text-4xl font-bold text-emerald-900">
+          <h1 className="text-4xl font-bold ">
             Create your profile
           </h1>
-          <p className="text-xl font-medium text-emerald-700">
+          <p className="text-xl font-medium text-foreground">
             Some info about yourself
           </p>
         </div>
@@ -132,7 +132,7 @@ export default function CreateRoommate() {
             <div className="w-full text-right">
               <button
                 disabled={mutation.isPending}
-                className="w-fit px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:bg-emerald-500"
+                className="w-fit px-6 py-3 bg-emerald-800 text-white rounded-md hover:bg-emerald-700 disabled:0"
                 type="submit"
               >
                 Save Changes
