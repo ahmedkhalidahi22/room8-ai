@@ -53,6 +53,14 @@ model Profile {
   userId        String  
   createdAt     DateTime  @default(now()) 
   updatedAt     DateTime  @updatedAt 
+  location      String?
+  budget        Int?
+  moveDate      DateTime?
+  lookingFor    String?
+  children      Boolean?
+  preferences   String?
+  
+
 }
 
 model Account {

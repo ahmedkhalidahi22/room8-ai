@@ -40,16 +40,22 @@ export const LoginFormSchema = z.object({
 });
 
 export const FormUserDetailSchema = z.object({
-  age: z.string().min(1, "this field must be filled"),
-  nationality: z.string().min(1, "this form is required"),
-  gender: z.string().min(1, "this form is required"),
-  occupation: z.string().min(1, "this form is required"),
-});
-
-export const userDetailSchema = z.object({
-  age: z.string().min(1, "this field must be filled"),
-  nationality: z.string().min(1, "this form is required"),
-  gender: z.string().min(1, "this form is required"),
-  occupation: z.string().min(1, "this form is required"),
+  occupation: z.string().min(1, "Occupation is required"),
+  nationality: z.string().min(1, "Nationality is required"),
+  gender: z.enum(["male", "female"], {
+    errorMap: () => ({ message: "Please select a gender" }),
+  }),
+  age: z.coerce.number().min(18, "Must be at least 18 years old"),
+  location: z.string().min(1, "Location is required"),
+  budget: z.coerce.number().min(1, "Budget is required"),
+  lookingFor: z.enum(["for-myself", "as-a-couple", "as-a-group"], {
+    errorMap: () => ({ message: "Please select an option" }),
+  }),
+  children: z.enum(["no-children", "visiting-children", "living-children"], {
+    errorMap: () => ({ message: "Please select an option" }),
+  }),
+  preferences: z.array(z.string()),
+  description: z.string().min(1, "this form is required"),
+  moveDate: z.coerce.date().min(new Date(), "Move date must be in the future"),
   userId: z.string(),
 });

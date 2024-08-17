@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${roboto.className} overflow-hidden`}>
+        <body className={`${roboto.className} `}>
           <SignedIn>
             <Header />
             <QueryProvider>{children}</QueryProvider>

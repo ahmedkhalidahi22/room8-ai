@@ -39,12 +39,12 @@ export default function Header() {
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-bold md:text-4xl"
+            className="flex items-center gap-2 text-xl font-bold md:text-4xl z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-400 to-neutral-900 py-8"
             onMouseEnter={play}
             onMouseLeave={pause}
             >
                 Room
-            <div className="rotate-90 -ml-5" style={{ width: 55, height: 50 }}>
+            <div className="rotate-90 -ml-6" style={{ width: 55, height: 50 }}>
               {View}
             </div>
             <span className="sr-only">Room 8 AI</span>

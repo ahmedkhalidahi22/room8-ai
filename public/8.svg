@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Isolation_Mode" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 92.33 196.08">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-157.53" y1="234.41" x2="45.47" y2="137.91" gradientTransform="translate(222.1 38.32) rotate(-90) scale(.92 -.92)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#067857"/>
+      <stop offset=".49" stop-color="#002b1f"/>
+      <stop offset="1" stop-color="#085f46"/>
+    </linearGradient>
+  </defs>
+  <path d="M10.89,34.81c-1.07,3.72-1.66,7.85-1.66,12.38,0,50.78,73.87,50.78,73.87,101.57s-73.87,50.78-73.87,0h0c0-50.78,73.87-50.78,73.87-101.57,0-23.93-16.41-36.59-33.75-37.96" style="fill: none; stroke: url(#linear-gradient); stroke-linecap: round; stroke-linejoin: round; stroke-width: 18.47px;"/>
+</svg>
