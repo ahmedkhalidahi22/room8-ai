@@ -282,7 +282,7 @@ export default function CreateProfileForm() {
                       control={form.control}
                       name="lookingFor"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="pb-5">
                           <FormLabel>I&apos;m looking...</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
