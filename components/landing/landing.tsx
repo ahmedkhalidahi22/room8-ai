@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
-
+import Particles from "@/components/ui/particles";
 export default function Landing() {
   return (
 <div className="flex flex-col items-center justify-center h-screen">
@@ -25,6 +25,12 @@ export default function Landing() {
           </Button>
         </div>
       </div>
-    </div>
+      <Particles
+        className="absolute inset-0 -z-10"
+        quantity={70}
+        ease={80}
+        color={"#065f46"}
+        refresh
+      />    </div>
   )
 }
