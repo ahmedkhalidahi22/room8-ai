@@ -1,10 +1,10 @@
 import prisma from "@/lib/prisma";
 import { LoginFormSchema } from "@/lib/validations";
 import { NextResponse } from "next/server";
-import { signIn } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { AuthError } from "next-auth";
-import { redirect } from "next/navigation";
+// import { signIn } from "@/auth";
+// import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+// import { AuthError } from "next-auth";
+// import { redirect } from "next/navigation";
 
 export async function POST(request: Request, response: NextResponse) {
   const userInfo: unknown = await request.json();
@@ -19,25 +19,26 @@ export async function POST(request: Request, response: NextResponse) {
   const { email, password } = parsedUserInfo.data;
 
   try {
-    await signIn("credentials", {
-      email,
-      password,
-      redirectTo: "/dashboard",
-    });
+    // await signIn("credentials", {
+    //   email,
+    //   password,
+    //   redirectTo: "/dashboard",
+    // });
+    return NextResponse.json({});
   } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return NextResponse.json({
-            message: "invalid credentials",
-          });
-        default:
-          return NextResponse.json({
-            message: "something went wrong",
-          });
-      }
-    }
-
-    throw error;
+    // if (error instanceof AuthError) {
+    //   switch (error.type) {
+    //     case "CredentialsSignin":
+    //       return NextResponse.json({
+    //         message: "invalid credentials",
+    //       });
+    //     default:
+    //       return NextResponse.json({
+    //         message: "something went wrong",
+    //       });
+    //   }
+    // }
+    // throw error;
+    return NextResponse.json({});
   }
 }
