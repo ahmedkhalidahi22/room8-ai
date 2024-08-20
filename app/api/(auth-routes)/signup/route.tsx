@@ -22,14 +22,14 @@ export async function POST(request: Request, response: NextResponse) {
   }
 
   const hashedPassword = await bcrypt.hash(parsedUserInfo.data.password, 10);
-  const user = await prisma.user.create({
-    data: {
-      email: parsedUserInfo.data.email,
-      name: parsedUserInfo.data.name,
-      password: hashedPassword,
-      phone: parsedUserInfo.data.phone ?? null,
-    },
-  });
+  // const user = await prisma.user.create({
+  //   data: {
+  //     email: parsedUserInfo.data.email,
+  //     name: parsedUserInfo.data.name,
+  //     password: hashedPassword,
+  //     phone: parsedUserInfo.data.phone ?? null,
+  //   },
+  // });
 
   return NextResponse.json({
     message: "user signed up successfully",
