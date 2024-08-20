@@ -42,10 +42,8 @@ export const LoginFormSchema = z.object({
 export const FormUserDetailSchema = z.object({
   occupation: z.string().min(1, "Occupation is required"),
   nationality: z.string().min(1, "Nationality is required"),
-  gender: z.enum(["male", "female"], {
-    errorMap: () => ({ message: "Please select a gender" }),
-  }),
-  age: z.coerce.number().min(18, "Must be at least 18 years old"),
+  gender: z.string().min(1, "Gender is required"),
+  age: z.number().min(18, "Must be at least 18 years old"),
   location: z.string().min(1, "Location is required"),
   budget: z.coerce.number().min(1, "Budget is required"),
   lookingFor: z.enum(["for-myself", "as-a-couple", "as-a-group"], {

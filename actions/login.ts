@@ -5,6 +5,7 @@ import { LoginFormSchema } from "@/lib/validations";
 import { AuthError } from "next-auth";
 import { z } from "zod";
 import { cookies } from "next/headers";
+import prisma from "@/lib/prisma";
 
 export const login = async (values: z.infer<typeof LoginFormSchema>) => {
   const parsedUserInfo = LoginFormSchema.safeParse(values);
@@ -40,3 +41,4 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
     throw error;
   }
 };
+
