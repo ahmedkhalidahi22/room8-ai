@@ -24,6 +24,7 @@ export async function POST(request: Request, response: NextResponse) {
     //   password,
     //   redirectTo: "/dashboard",
     // });
+    return NextResponse.json({});
   } catch (error) {
     // if (error instanceof AuthError) {
     //   switch (error.type) {
@@ -38,5 +39,6 @@ export async function POST(request: Request, response: NextResponse) {
     //   }
     // }
     // throw error;
+    return NextResponse.json({});
   }
 }

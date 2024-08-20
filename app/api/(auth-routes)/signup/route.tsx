@@ -28,4 +28,5 @@ export async function POST(request: Request, response: NextResponse) {
   // return NextResponse.json({
   //   message: "user signed up successfully",
   // });
+  return NextResponse.json({});
 }

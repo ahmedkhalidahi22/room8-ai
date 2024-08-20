@@ -26,8 +26,5 @@ export async function POST(request: Request, response: NextResponse) {
   //   },
   // });
   // console.log("user Data after posting: ", userProfile);
-  // return NextResponse.json({
-  //   message: "user details created successfully",
-  //   userDetail: userProfile.id,
-  // });
+  return NextResponse.json({});
 }
