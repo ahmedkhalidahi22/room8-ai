@@ -22,15 +22,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { motion, AnimatePresence } from "framer-motion";
@@ -58,7 +58,6 @@ export default function CreateProfileForm() {
       children: "no-children",
       preferences: [],
       description: "",
- 
     },
   });
 
@@ -76,7 +75,8 @@ export default function CreateProfileForm() {
       console.error("Error creating profile:", error);
       toast({
         title: "Error",
-        description: "There was a problem creating your profile. Please try again.",
+        description:
+          "There was a problem creating your profile. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -92,7 +92,7 @@ export default function CreateProfileForm() {
       "age",
       "location",
       "budget",
-      "lookingFor"
+      "lookingFor",
     ] as const;
 
     const result = await form.trigger(firstStepFields);
@@ -104,10 +104,8 @@ export default function CreateProfileForm() {
   const onPrevious = () => setStep(1);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div
-  className="absolute -z-10 inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"
-></div>
+    <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-16">
+      <div className="absolute -z-10 inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
       <div className="w-full max-w-[650px] bg-white rounded-lg shadow-md">
         <div className="px-8 py-6 space-y-6">
           <div className="space-y-3">
@@ -116,7 +114,7 @@ export default function CreateProfileForm() {
               Tell us about yourself
             </p>
             <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
-              <motion.div 
+              <motion.div
                 className="bg-emerald-800 h-2.5 rounded-full"
                 initial={{ width: "50%" }}
                 animate={{ width: step === 1 ? "50%" : "100%" }}
@@ -124,7 +122,7 @@ export default function CreateProfileForm() {
               />
             </div>
           </div>
-          
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <AnimatePresence mode="wait">
@@ -169,7 +167,10 @@ export default function CreateProfileForm() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Gender</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select gender" />
@@ -227,7 +228,9 @@ export default function CreateProfileForm() {
                           <FormLabel>Budget</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <span className="absolute text-sm left-3 top-1/2 transform -translate-y-1/2">AED</span>
+                              <span className="absolute text-sm left-3 top-1/2 transform -translate-y-1/2">
+                                AED
+                              </span>
                               <Input
                                 type="number"
                                 placeholder="1000"
@@ -254,23 +257,37 @@ export default function CreateProfileForm() {
                       render={({ field }) => (
                         <FormItem className="pb-5">
                           <FormLabel>I&apos;m looking...</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select option" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="for-myself">For myself</SelectItem>
-                              <SelectItem value="as-a-couple">As a couple</SelectItem>
-                              <SelectItem value="as-a-group">As a group of friends</SelectItem>
+                              <SelectItem value="for-myself">
+                                For myself
+                              </SelectItem>
+                              <SelectItem value="as-a-couple">
+                                As a couple
+                              </SelectItem>
+                              <SelectItem value="as-a-group">
+                                As a group of friends
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <Button type="button" onClick={onNext} variant="accent" className="w-full mt-6">
+                    <Button
+                      type="button"
+                      onClick={onNext}
+                      variant="accent"
+                      className="w-full mt-6"
+                    >
                       Next
                     </Button>
                   </motion.div>
@@ -309,7 +326,10 @@ export default function CreateProfileForm() {
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
                               <Calendar
                                 mode="single"
                                 selected={field.value || new Date()}
@@ -329,16 +349,25 @@ export default function CreateProfileForm() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Children</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select option" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="no-children">No children</SelectItem>
-                              <SelectItem value="visiting-children">Children that will visit</SelectItem>
-                              <SelectItem value="living-children">Children that will live with me</SelectItem>
+                              <SelectItem value="no-children">
+                                No children
+                              </SelectItem>
+                              <SelectItem value="visiting-children">
+                                Children that will visit
+                              </SelectItem>
+                              <SelectItem value="living-children">
+                                Children that will live with me
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -352,7 +381,11 @@ export default function CreateProfileForm() {
                         <FormItem>
                           <FormLabel>Preferences</FormLabel>
                           <div className="space-y-6">
-                            {['🚭 Non smoker', '🐱 I have a pet', "👨‍🎓 I'm a student"].map((item) => (
+                            {[
+                              "🚭 Non smoker",
+                              "🐱 I have a pet",
+                              "👨‍🎓 I'm a student",
+                            ].map((item) => (
                               <FormField
                                 key={item}
                                 control={form.control}
@@ -364,13 +397,17 @@ export default function CreateProfileForm() {
                                         checked={field.value?.includes(item)}
                                         onCheckedChange={(checked) => {
                                           const updatedValue = checked
-                                            ? [...field.value || [], item]
-                                            : field.value?.filter((value) => value !== item);
+                                            ? [...(field.value || []), item]
+                                            : field.value?.filter(
+                                                (value) => value !== item
+                                              );
                                           field.onChange(updatedValue);
                                         }}
                                       />
                                     </FormControl>
-                                    <FormLabel className="font-normal">{item}</FormLabel>
+                                    <FormLabel className="font-normal">
+                                      {item}
+                                    </FormLabel>
                                   </FormItem>
                                 )}
                               />
@@ -397,7 +434,12 @@ export default function CreateProfileForm() {
                       )}
                     />
                     <div className="flex space-x-4 mt-6">
-                      <Button type="button" onClick={onPrevious} variant="outline" className="w-1/2">
+                      <Button
+                        type="button"
+                        onClick={onPrevious}
+                        variant="outline"
+                        className="w-1/2"
+                      >
                         Previous
                       </Button>
                       <Button
@@ -406,7 +448,9 @@ export default function CreateProfileForm() {
                         disabled={isSubmitting}
                         className="w-1/2"
                       >
-                        {isSubmitting ? "Creating Profile..." : "Create Profile"}
+                        {isSubmitting
+                          ? "Creating Profile..."
+                          : "Create Profile"}
                       </Button>
                     </div>
                   </motion.div>
@@ -414,8 +458,6 @@ export default function CreateProfileForm() {
               </AnimatePresence>
             </form>
           </Form>
-
-          
         </div>
       </div>
     </div>
