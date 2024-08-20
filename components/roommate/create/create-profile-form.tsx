@@ -1,8 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -36,23 +34,15 @@ import { cn } from "@/lib/utils"
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { motion, AnimatePresence } from "framer-motion";
-
-const responseSchema = z.object({
-  message: z.string().min(1),
-  userDetail: z.string().min(1),
-});
+import { createProfile } from "@/actions/create-profile";
+import { useToast } from "@/components/ui/use-toast";
 
 type TformSchema = z.infer<typeof FormUserDetailSchema>;
-type TresponseSchema = z.infer<typeof responseSchema>;
-
 
 export default function CreateProfileForm() {
-  const [submitResponse, SetsubmitResponse] = useState<
-    TresponseSchema | null | undefined
-  >(null);
-  const [responseError, setResponseError] = useState<String | null | undefined>(
-    null
-  );
+  const { toast } = useToast();
+  const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<TformSchema>({
     resolver: zodResolver(FormUserDetailSchema),
@@ -68,44 +58,30 @@ export default function CreateProfileForm() {
       children: "no-children",
       preferences: [],
       description: "",
+ 
     },
   });
 
-  const mutation = useMutation({
-    mutationFn: (userDetail: TformSchema) => {
-      return axios.post("/api/profile", userDetail);
-    },
-    onSuccess: (data) => {
-      const parsedResponeData = responseSchema.safeParse(data.data);
-
-      if (!parsedResponeData.success) {
-        console.log(parsedResponeData.error);
-        setResponseError("sorry, user detials cannot be retrieved");
-      }
-      SetsubmitResponse(parsedResponeData.data);
-    },
-    onError: () => {
-      setResponseError("sorry, user detials cannot be retrieved");
-    },
-  });
-
-  const onSubmit = (data: TformSchema) => {
-    console.log("submit fun triggered");
-
-    mutation.mutate({
-      occupation: data.occupation,
-      age: data.age,
-      gender: data.gender,
-      nationality: data.nationality,
-      userId: "clyres7uv0000602zppz7100y",
-      location: data.location,
-      budget: data.budget,
-      lookingFor: data.lookingFor,
-      moveDate: data.moveDate,
-      children: data.children,
-      preferences: data.preferences,
-      description: data.description,
-    });
+  const onSubmit = async (data: TformSchema) => {
+    setIsSubmitting(true);
+    try {
+      const result = await createProfile(data.userId, data);
+      toast({
+        title: "Profile created successfully",
+        description: "Your profile has been created and saved.",
+        variant: "default",
+      });
+      // Optionally, redirect the user or clear the form here
+    } catch (error) {
+      console.error("Error creating profile:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem creating your profile. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const onNext = async () => {
@@ -126,12 +102,6 @@ export default function CreateProfileForm() {
   };
 
   const onPrevious = () => setStep(1);
-
-  const [step, setStep] = useState(1);
-
-  useEffect(() => {
-    console.log(submitResponse);
-  }, [submitResponse]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
@@ -433,10 +403,10 @@ export default function CreateProfileForm() {
                       <Button
                         type="submit"
                         variant="accent"
-                        disabled={mutation.isPending}
+                        disabled={isSubmitting}
                         className="w-1/2"
                       >
-                        Create Profile
+                        {isSubmitting ? "Creating Profile..." : "Create Profile"}
                       </Button>
                     </div>
                   </motion.div>
@@ -445,13 +415,7 @@ export default function CreateProfileForm() {
             </form>
           </Form>
 
-          {submitResponse && (
-            <div className="mt-6 p-4 bg-gray-100 rounded-md">
-              <h4 className="font-semibold mb-2">Response Results</h4>
-              <p>Message: {submitResponse.message}</p>
-              <p>ID: {submitResponse.userDetail}</p>
-            </div>
-          )}
+          
         </div>
       </div>
     </div>
