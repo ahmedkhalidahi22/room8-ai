@@ -36,10 +36,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { motion, AnimatePresence } from "framer-motion";
 import { createProfile } from "@/actions/create-profile";
 import { useToast } from "@/components/ui/use-toast";
+import { useUser } from "@clerk/nextjs";
 
 type TformSchema = z.infer<typeof FormUserDetailSchema>;
 
 export default function CreateProfileForm() {
+  const { user } = useUser();
   const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,17 +49,18 @@ export default function CreateProfileForm() {
   const form = useForm<TformSchema>({
     resolver: zodResolver(FormUserDetailSchema),
     defaultValues: {
-      occupation: "",
-      nationality: "",
+      occupation: "nurse",
+      userId: user?.id,
+      nationality: "Canadian",
       gender: "male",
-      age: undefined,
-      location: "",
-      budget: undefined,
+      age: 24,
+      location: "Dubai",
+      budget: 10000,
       lookingFor: "for-myself",
-      moveDate: undefined,
+      moveDate: new Date(),
       children: "no-children",
-      preferences: [],
-      description: "",
+      preferences: ["🚭 Non smoker", "🐱 I have a pet", "👨‍🎓 I'm a student"],
+      description: "I'm a nurse and I'm looking for a roommate to share an apartment with.",
  
     },
   });
@@ -65,18 +68,24 @@ export default function CreateProfileForm() {
   const onSubmit = async (data: TformSchema) => {
     setIsSubmitting(true);
     try {
-      const result = await createProfile(data.userId, data);
-      toast({
-        title: "Profile created successfully",
-        description: "Your profile has been created and saved.",
-        variant: "default",
-      });
-      // Optionally, redirect the user or clear the form here
+      const result = await createProfile(data);
+      if (result.success) {
+        toast({
+          title: "Profile created",
+          description: "Your profile has been successfully created.",
+        });
+        // Optionally, redirect the user or reset the form
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to create profile. Please try again.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
-      console.error("Error creating profile:", error);
       toast({
         title: "Error",
-        description: "There was a problem creating your profile. Please try again.",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
